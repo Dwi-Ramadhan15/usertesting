@@ -33,14 +33,12 @@
         
         .header h1 {
             color: #001F3F;
-            /* Navy Blue */
             margin: 0;
             font-weight: 800;
         }
         
         .header span {
             color: #FF851B;
-            /* Orange Accent */
         }
         
         .header p {
@@ -78,7 +76,6 @@
         textarea:focus {
             border-color: #FF851B;
         }
-        /* Star Rating JS */
         
         .stars {
             display: flex;
@@ -123,21 +120,20 @@
             <p>Terima kasih telah mencoba aplikasi kami! Berikan pendapat jujurmu di bawah ini.</p>
         </div>
 
-        <!-- Nanti form action-nya kita isi pakai Web3Forms/Formspree agar datanya masuk ke emailmu -->
-        <form id="testingForm" onsubmit="submitForm(event)">
+        <form id="testingForm" action="https://formspree.io/f/mzdkrpaq" method="POST" onsubmit="submitForm(event)">
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" id="nama" placeholder="Masukkan nama Anda..." required>
+                <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama Anda..." required>
             </div>
 
             <div class="form-group">
                 <label>Status / Pekerjaan</label>
-                <select id="status" required>
-                <option value="" disabled selected>Pilih status...</option>
-                <option value="Mahasiswa">Mahasiswa / Pelajar</option>
-                <option value="Pekerja">Pekerja</option>
-                <option value="Lainnya">Lainnya</option>
-            </select>
+                <select id="status" name="Status Pekerjaan" required>
+                    <option value="" disabled selected>Pilih status...</option>
+                    <option value="Mahasiswa">Mahasiswa / Pelajar</option>
+                    <option value="Pekerja">Pekerja</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -149,12 +145,12 @@
                     <span class="star" data-value="4">★</span>
                     <span class="star" data-value="5">★</span>
                 </div>
-                <input type="hidden" id="ratingValue" value="0" required>
+                <input type="hidden" id="ratingValue" name="Rating Bintang" value="0" required>
             </div>
 
             <div class="form-group">
                 <label>Kritik & Saran (Apakah ada error/bug?)</label>
-                <textarea id="saran" rows="4" placeholder="Tulis masukan Anda di sini..." required></textarea>
+                <textarea id="saran" name="Saran dan Masukan" rows="4" placeholder="Tulis masukan Anda di sini..." required></textarea>
             </div>
 
             <button type="submit" class="btn-submit">Kirim Penilaian</button>
@@ -162,7 +158,6 @@
     </div>
 
     <script>
-        // Logic Javascript untuk Bintang Interaktif
         const stars = document.querySelectorAll('.star');
         const ratingInput = document.getElementById('ratingValue');
 
@@ -178,19 +173,13 @@
             });
         });
 
-        // Logic saat tombol kirim ditekan
         function submitForm(event) {
-            event.preventDefault();
             let rating = ratingInput.value;
             if (rating == 0) {
+                event.preventDefault();
                 alert("Harap berikan rating bintang terlebih dahulu!");
-                return;
+                return false;
             }
-
-            // Nanti kita tambahkan script untuk kirim datanya ke emailmu di sini
-            alert("Terima kasih! Penilaian Anda berhasil disimpan.");
-            document.getElementById('testingForm').reset();
-            stars.forEach(s => s.classList.remove('active'));
         }
     </script>
 
