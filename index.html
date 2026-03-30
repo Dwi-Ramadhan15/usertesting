@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Testing - D'NEWS Mobile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F1F4F8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 31, 63, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #001F3F;
+            /* Navy Blue */
+            margin: 0;
+            font-weight: 800;
+        }
+        
+        .header span {
+            color: #FF851B;
+            /* Orange Accent */
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #001F3F;
+        }
+        
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #FF851B;
+        }
+        /* Star Rating JS */
+        
+        .stars {
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .star {
+            font-size: 30px;
+            color: #e1e5eb;
+            transition: 0.2s;
+        }
+        
+        .star.active {
+            color: #FF851B;
+        }
+        
+        .btn-submit {
+            background-color: #001F3F;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #FF851B;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>D'NEWS <span>Testing Form</span></h1>
+            <p>Terima kasih telah mencoba aplikasi kami! Berikan pendapat jujurmu di bawah ini.</p>
+        </div>
+
+        <!-- Nanti form action-nya kita isi pakai Web3Forms/Formspree agar datanya masuk ke emailmu -->
+        <form id="testingForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="nama" placeholder="Masukkan nama Anda..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Status / Pekerjaan</label>
+                <select id="status" required>
+                <option value="" disabled selected>Pilih status...</option>
+                <option value="Mahasiswa">Mahasiswa / Pelajar</option>
+                <option value="Pekerja">Pekerja</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label>Seberapa mudah aplikasi ini digunakan? (Rating)</label>
+                <div class="stars" id="star-rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="ratingValue" value="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Kritik & Saran (Apakah ada error/bug?)</label>
+                <textarea id="saran" rows="4" placeholder="Tulis masukan Anda di sini..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Kirim Penilaian</button>
+        </form>
+    </div>
+
+    <script>
+        // Logic Javascript untuk Bintang Interaktif
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                let rating = this.getAttribute('data-value');
+                ratingInput.value = rating;
+
+                stars.forEach(s => s.classList.remove('active'));
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.add('active');
+                }
+            });
+        });
+
+        // Logic saat tombol kirim ditekan
+        function submitForm(event) {
+            event.preventDefault();
+            let rating = ratingInput.value;
+            if (rating == 0) {
+                alert("Harap berikan rating bintang terlebih dahulu!");
+                return;
+            }
+
+            // Nanti kita tambahkan script untuk kirim datanya ke emailmu di sini
+            alert("Terima kasih! Penilaian Anda berhasil disimpan.");
+            document.getElementById('testingForm').reset();
+            stars.forEach(s => s.classList.remove('active'));
+        }
+    </script>
+
+</body>
+
+</html>
